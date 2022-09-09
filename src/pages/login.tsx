@@ -1,7 +1,7 @@
 import LoginPage from 'components/LoginPage/LoginPage';
 
-interface ILoginRootProps {}
-const LoginRoot: React.FC<ILoginRootProps> = ({}) => {
+interface ILoginRouteProps {}
+const LoginRoute: React.FC<ILoginRouteProps> = ({}) => {
   return <LoginPage />;
 };
-export default LoginRoot;
+export default LoginRoute;
