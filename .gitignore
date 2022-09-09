@@ -35,5 +35,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-
+# yarn.lock is commented, since local installments of packages 
+# adds aws code registry traces in file
+# which don't resolve while deploying on vercel
 yarn.lock
