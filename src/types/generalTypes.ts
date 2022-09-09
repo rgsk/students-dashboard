@@ -15,15 +15,13 @@ export type TStudent = {
   email: string;
   rollNumber: number;
   age: number;
-  gender: EGender;
+  gender: string;
 };
 
-export enum EAttendanceStatus {
-  present = 'present',
-  absent = 'absent',
-}
+export type TAttendanceStatus = 'present' | 'absent';
+
 export type TAttendance = {
   studentId: number;
-  date: Date;
-  status: EAttendanceStatus;
+  date: string;
+  status: TAttendanceStatus;
 };

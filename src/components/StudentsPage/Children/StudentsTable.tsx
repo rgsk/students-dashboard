@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-key */
+import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
-import { Column, useTable } from 'react-table';
+import { Column, useTable, useSortBy } from 'react-table';
 import { TStudent } from 'types/generalTypes';
 
 interface IStudentsTableProps {
@@ -44,7 +45,8 @@ const StudentsTable: React.FC<IStudentsTableProps> = ({ data }) => {
     ];
   }, []);
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data });
+    useTable({ columns, data }, useSortBy);
+  const router = useRouter();
 
   return (
     <table
@@ -54,12 +56,15 @@ const StudentsTable: React.FC<IStudentsTableProps> = ({ data }) => {
       <thead className="bg-gray-100">
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
+            {headerGroup.headers.map((column: any) => (
               <th
-                {...column.getHeaderProps()}
+                {...column.getHeaderProps(column.getSortByToggleProps())}
                 className="py-3 px-6 text-left text-xs font-medium tracking-wider text-gray-700 "
               >
                 {column.render('Header')}
+                <span>
+                  {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+                </span>
               </th>
             ))}
           </tr>
@@ -72,7 +77,13 @@ const StudentsTable: React.FC<IStudentsTableProps> = ({ data }) => {
         {rows.map((row) => {
           prepareRow(row);
           return (
-            <tr {...row.getRowProps()} className="transition hover:bg-gray-100">
+            <tr
+              {...row.getRowProps()}
+              onClick={() => {
+                router.push(`/students/${row.cells[0].value}`);
+              }}
+              className="transition hover:bg-gray-100"
+            >
               {row.cells.map((cell) => {
                 return (
                   <td

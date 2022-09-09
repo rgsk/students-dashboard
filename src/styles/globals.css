@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .absolute-center {
+    @apply absolute top-1/2 left-1/2 
+    -translate-x-1/2 
+    -translate-y-1/2;
+  }
+  .absolute-cover {
+    @apply absolute top-0 left-0 w-full h-full;
+  }
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+  .my-input {
+    @apply block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm;
+  }
+  .my-label {
+    @apply mb-2 block text-sm font-medium;
+  }
+}

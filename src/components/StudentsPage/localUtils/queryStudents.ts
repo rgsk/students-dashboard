@@ -13,8 +13,15 @@ const getTotalNumberOfStudents = () => {
   return students.length;
 };
 
+const studentsAsMap = students.reduce((acc, cur) => {
+  acc[cur.id] = cur;
+  return acc;
+}, {} as Record<number, TStudent>);
+
 const getStudentById = (id: number) => {
-  return students.find((s) => s.id === id) as TStudent;
+  // return students.find((s) => s.id === id) as TStudent;
+  // below is more optimized
+  return studentsAsMap[id];
 };
 
 const queryStudents = {
