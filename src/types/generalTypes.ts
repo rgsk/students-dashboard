@@ -1,3 +1,12 @@
+export enum EGender {
+  Male = 'Male',
+  Female = 'Female',
+  Genderfluid = 'Genderfluid',
+  Agender = 'Agender',
+  'Non-binary' = 'Non-binary',
+  Polygender = 'Polygender',
+  Genderqueer = 'Genderqueer',
+}
 export type TStudent = {
   id: number;
   firstName: string;
@@ -6,8 +15,9 @@ export type TStudent = {
   email: string;
   rollNumber: number;
   age: number;
-  gender: 'Male' | 'Female';
+  gender: EGender;
 };
+
 export enum EAttendanceStatus {
   present = 'present',
   absent = 'absent',

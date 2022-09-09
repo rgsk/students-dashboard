@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { TStudent } from 'types/generalTypes';
 
 import PageNavigation from './Children/PageNavigation';
+import StudentsTable from './Children/StudentsTable';
 import queryStudents from './localUtils/queryStudents';
 
 interface IStudentsPageProps {}
@@ -12,9 +13,7 @@ const StudentsPage: React.FC<IStudentsPageProps> = ({}) => {
   const totalStudents = useMemo(() => {
     return queryStudents.getTotalNumberOfStudents();
   }, []);
-  useEffect(() => {
-    console.log(students);
-  }, [students]);
+
   useEffect(() => {
     const _students = queryStudents.getStudents({
       page: page,
@@ -22,8 +21,10 @@ const StudentsPage: React.FC<IStudentsPageProps> = ({}) => {
     });
     setStudents(_students);
   }, [page, perPage]);
+
   return (
-    <div>
+    <div className="px-5 pt-4">
+      <StudentsTable data={students} />
       <PageNavigation
         currentPage={page}
         perPage={perPage}
