@@ -1,4 +1,6 @@
+import { useMemo } from 'react';
 
+import queryStudents from '../localUtils/queryStudents';
 
 interface IStudentAttendancePageProps {
   id: number;
@@ -6,7 +8,9 @@ interface IStudentAttendancePageProps {
 const StudentAttendancePage: React.FC<IStudentAttendancePageProps> = ({
   id,
 }) => {
-  console.log({ id });
-  return <div>StudentAttendancePage</div>;
+  const student = useMemo(() => {
+    return queryStudents.getStudentById(id);
+  }, [id]);
+  return <div>{JSON.stringify(student)}</div>;
 };
 export default StudentAttendancePage;
