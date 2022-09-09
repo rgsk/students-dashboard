@@ -1,5 +1,7 @@
+import AttendancesPage from 'components/AttendancesPage/AttendancesPage';
+
 interface IAttendancesRouteProps {}
 const AttendancesRoute: React.FC<IAttendancesRouteProps> = ({}) => {
-  return <div>AttendancesRoute</div>;
+  return <AttendancesPage />;
 };
 export default AttendancesRoute;

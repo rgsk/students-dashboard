@@ -24,7 +24,7 @@ const useAttendancesTable = () => {
   );
   const getAttendance = useCallback(
     (data: { studentId: number; date: string }) => {
-      return attendances[formKey(data)];
+      return attendances[formKey(data)] as TAttendanceStatus | undefined;
     },
     [attendances]
   );
