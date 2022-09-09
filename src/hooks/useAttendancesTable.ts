@@ -24,9 +24,9 @@ const useAttendancesTable = () => {
   );
   const getAttendance = useCallback(
     (data: { studentId: number; date: string }) => {
-      return attendancesRef.current[formKey(data)];
+      return attendances[formKey(data)];
     },
-    [attendancesRef]
+    [attendances]
   );
   return {
     attendances,

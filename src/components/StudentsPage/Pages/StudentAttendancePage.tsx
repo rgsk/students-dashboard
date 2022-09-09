@@ -17,17 +17,12 @@ const StudentAttendancePage: React.FC<IStudentAttendancePageProps> = ({
   const [attendanceDate, setAttendanceDate] = useState(() => {
     return format(new Date(), 'yyyy-MM-dd');
   });
-  const [attendanceStatus, setAttendanceStatus] = useState<TAttendanceStatus>();
-  const { markAttendance } = useAttendancesTable();
-  useEffect(() => {
-    if (attendanceStatus) {
-      markAttendance({
-        studentId: student.id,
-        date: attendanceDate,
-        status: attendanceStatus,
-      });
-    }
-  }, [attendanceDate, attendanceStatus, markAttendance, student.id]);
+  const { markAttendance, getAttendance } = useAttendancesTable();
+
+  const attendanceStatus = useMemo(() => {
+    return getAttendance({ studentId: student.id, date: attendanceDate });
+  }, [attendanceDate, getAttendance, student.id]);
+
   return (
     <div className="px-5 pt-4">
       {JSON.stringify(student)}
@@ -59,7 +54,14 @@ const StudentAttendancePage: React.FC<IStudentAttendancePageProps> = ({
               },
             ]}
             name="attendance"
-            setValue={(v) => setAttendanceStatus(v as TAttendanceStatus)}
+            setValue={(v) => {
+              const status = v as TAttendanceStatus;
+              markAttendance({
+                studentId: student.id,
+                date: attendanceDate,
+                status: status,
+              });
+            }}
             value={attendanceStatus}
           />
         </div>
