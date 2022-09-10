@@ -12,7 +12,7 @@ function RadioInput<T>({
   return (
     <div>
       {items.map((item) => (
-        <div key={item.value}>
+        <div key={item.value} className="flex items-center space-x-2">
           <input
             type="radio"
             id={item.value}
