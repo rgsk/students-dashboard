@@ -2,8 +2,12 @@ import 'styles/globals.css';
 
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-
-function MyApp({ Component, pageProps }: AppProps) {
+type ComponentWithPageLayout = AppProps & {
+  Component: AppProps['Component'] & {
+    PageLayout?: React.ComponentType<any>;
+  };
+};
+function MyApp({ Component, pageProps }: ComponentWithPageLayout) {
   return (
     <div>
       <Head>
@@ -11,7 +15,13 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="description" content="Welcome to Students Dashboard" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Component {...pageProps} />
+      {Component.PageLayout ? (
+        <Component.PageLayout>
+          <Component {...pageProps} />
+        </Component.PageLayout>
+      ) : (
+        <Component {...pageProps} />
+      )}
     </div>
   );
 }

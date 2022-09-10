@@ -28,7 +28,7 @@ const LoginPage: React.FC<ILoginPageProps> = ({}) => {
   );
   return (
     <div className="h-screen flex justify-center">
-      <form className="mt-[30vh]" onSubmit={handleSubmit}>
+      <form className="mt-[15vh]" onSubmit={handleSubmit}>
         <h3 className="text-xl mb-5">Please login to continue</h3>
         <div className="space-y-3">
           <FieldContainer>

@@ -1,4 +1,5 @@
 import AuthGuard from 'components/Global/AuthGuard';
+import Layout from 'components/Global/Layout';
 import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 
@@ -11,11 +12,14 @@ const AttendancesPage = dynamic(
     ssr: false,
   }
 );
-const NextAttendancesPage: NextPage = ({}) => {
+const NextAttendancesPage: NextPage & {
+  PageLayout: typeof Layout;
+} = ({}) => {
   return (
     <AuthGuard>
       <AttendancesPage />
     </AuthGuard>
   );
 };
+NextAttendancesPage.PageLayout = Layout;
 export default NextAttendancesPage;

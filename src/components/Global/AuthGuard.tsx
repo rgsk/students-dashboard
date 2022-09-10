@@ -17,6 +17,6 @@ const AuthGuard: React.FC<IAuthGuardProps> = ({ children }) => {
     }
   }, [router]);
 
-  return <div>{!checkingLoggedIn && children}</div>;
+  return <div>{checkingLoggedIn ? null : children}</div>;
 };
 export default AuthGuard;
