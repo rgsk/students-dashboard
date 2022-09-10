@@ -20,6 +20,11 @@ const LoginPage: React.FC<ILoginPageProps> = ({}) => {
       });
       if (response.error) {
         setError(response.message);
+        alert(`
+          Please use following credentials - 
+          Email: pw@gmail.com
+          Password: 123
+        `);
       } else {
         router.push('/');
       }

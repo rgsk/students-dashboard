@@ -1,6 +1,6 @@
 const credentials = {
-  email: 'rahul@pw.live',
-  password: 'ilovepw',
+  email: 'pw@gmail.com',
+  password: '123',
 };
 const TOKEN = 'TLy7pcmA0ZsAExBvKXWHK0wqByrOKIQ5uohzdvLmaGaj2RpgF';
 const TOKEN_KEY = 'token';
