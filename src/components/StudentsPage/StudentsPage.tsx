@@ -1,9 +1,9 @@
+import studentsApi from 'api/studentsApi';
 import { useEffect, useMemo, useState } from 'react';
 import { TStudent } from 'types/generalTypes';
 
 import PageNavigation from './Children/PageNavigation';
 import StudentsTable from './Children/StudentsTable';
-import queryStudents from './localUtils/queryStudents';
 
 interface IStudentsPageProps {}
 const StudentsPage: React.FC<IStudentsPageProps> = ({}) => {
@@ -11,11 +11,11 @@ const StudentsPage: React.FC<IStudentsPageProps> = ({}) => {
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(10);
   const totalStudents = useMemo(() => {
-    return queryStudents.getTotalNumberOfStudents();
+    return studentsApi.getTotalNumberOfStudents();
   }, []);
 
   useEffect(() => {
-    const _students = queryStudents.getStudents({
+    const _students = studentsApi.getStudents({
       page: page,
       perPage: perPage,
     });

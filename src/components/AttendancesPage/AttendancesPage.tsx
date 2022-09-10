@@ -1,4 +1,4 @@
-import queryStudents from 'components/StudentsPage/localUtils/queryStudents';
+import studentsApi from 'api/studentsApi';
 import { addMonths } from 'date-fns';
 import useAttendancesTable from 'hooks/useAttendancesTable';
 import { useCallback, useMemo, useState } from 'react';
@@ -78,7 +78,7 @@ const AttendancesPage: React.FC<IAttendancesPageProps> = ({}) => {
 };
 export default AttendancesPage;
 
-const totalStudents = queryStudents.getTotalNumberOfStudents();
+const totalStudents = studentsApi.getTotalNumberOfStudents();
 
 interface IMonthlyBlockProps {
   attendanceDetails: { present: number; absent: number };

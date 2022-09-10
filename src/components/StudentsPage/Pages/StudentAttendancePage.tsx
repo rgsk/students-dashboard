@@ -1,10 +1,10 @@
 import { useMemo, useState } from 'react';
 
-import queryStudents from '../localUtils/queryStudents';
 import RadioInput from './Children/RadioInput';
 import { TAttendanceStatus } from 'types/generalTypes';
 import useAttendancesTable from 'hooks/useAttendancesTable';
 import generalUtils from 'utils/generalUtils';
+import studentsApi from 'api/studentsApi';
 interface IStudentAttendancePageProps {
   id: number;
 }
@@ -12,7 +12,7 @@ const StudentAttendancePage: React.FC<IStudentAttendancePageProps> = ({
   id,
 }) => {
   const student = useMemo(() => {
-    return queryStudents.getStudentById(id);
+    return studentsApi.getStudentById(id);
   }, [id]);
   const [attendanceDate, setAttendanceDate] = useState(() => {
     return generalUtils.getAttendanceDateString(new Date());

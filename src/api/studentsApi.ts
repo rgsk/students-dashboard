@@ -24,9 +24,9 @@ const getStudentById = (id: number) => {
   return studentsAsMap[id];
 };
 
-const queryStudents = {
+const studentsApi = {
   getStudents,
   getTotalNumberOfStudents,
   getStudentById,
 };
-export default queryStudents;
+export default studentsApi;
