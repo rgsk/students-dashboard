@@ -1,10 +1,10 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import queryStudents from '../localUtils/queryStudents';
-import { format } from 'date-fns';
 import RadioInput from './Children/RadioInput';
 import { TAttendanceStatus } from 'types/generalTypes';
 import useAttendancesTable from 'hooks/useAttendancesTable';
+import generalUtils from 'utils/generalUtils';
 interface IStudentAttendancePageProps {
   id: number;
 }
@@ -15,7 +15,7 @@ const StudentAttendancePage: React.FC<IStudentAttendancePageProps> = ({
     return queryStudents.getStudentById(id);
   }, [id]);
   const [attendanceDate, setAttendanceDate] = useState(() => {
-    return format(new Date(), 'yyyy-MM-dd');
+    return generalUtils.getAttendanceDateString(new Date());
   });
   const { markAttendance, getAttendance } = useAttendancesTable();
 
