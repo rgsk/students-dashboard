@@ -23,15 +23,17 @@ const StudentsPage: React.FC<IStudentsPageProps> = ({}) => {
   }, [page, perPage]);
 
   return (
-    <div className="px-5 pt-4">
+    <div className="px-5 pt-5">
       <StudentsTable data={students} />
-      <PageNavigation
-        currentPage={page}
-        perPage={perPage}
-        gotoPage={setPage}
-        setPerPage={setPerPage}
-        totalCount={totalStudents}
-      />
+      <div className="mt-5">
+        <PageNavigation
+          currentPage={page}
+          perPage={perPage}
+          gotoPage={setPage}
+          setPerPage={setPerPage}
+          totalCount={totalStudents}
+        />
+      </div>
     </div>
   );
 };

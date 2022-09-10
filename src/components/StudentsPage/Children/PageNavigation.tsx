@@ -7,7 +7,7 @@ import {
   ChevronsRightIcon,
 } from 'components/Shared/Icons';
 
-import IconButton from './IconButton';
+import IconButton from '../../Shared/IconButton';
 
 interface IPageNavigationProps {
   totalCount: number;

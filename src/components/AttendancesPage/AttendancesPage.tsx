@@ -1,8 +1,10 @@
-import studentsApi from 'api/studentsApi';
-import { addMonths } from 'date-fns';
+import { ChevronLeftIcon, ChevronRightIcon } from 'components/Shared/Icons';
+import IconButton from 'components/Shared/IconButton';
+import { addMonths, format } from 'date-fns';
 import useAttendancesTable from 'hooks/useAttendancesTable';
 import { useCallback, useMemo, useState } from 'react';
 import generalUtils from 'utils/generalUtils';
+import MonthlyBlock from './Children/MonthlyBlock';
 import getDatesForMonthView from './localUtils/getDatesForMonthView';
 
 interface IAttendancesPageProps {}
@@ -51,9 +53,26 @@ const AttendancesPage: React.FC<IAttendancesPageProps> = ({}) => {
 
   return (
     <div className="px-5 pt-5">
-      <div>
-        <p onClick={navigateToPrevMonth}>prev</p>
-        <p onClick={navigateToNextMonth}>next</p>
+      <div className="flex space-x-4 items-center mb-5">
+        <IconButton
+          onClick={() => {
+            setCurrentlyViewedDate(new Date());
+          }}
+        >
+          Today
+        </IconButton>
+        <div className="flex space-x-2">
+          <IconButton onClick={navigateToPrevMonth}>
+            {ChevronLeftIcon}
+          </IconButton>
+          <IconButton onClick={navigateToNextMonth}>
+            {ChevronRightIcon}
+          </IconButton>
+        </div>
+        <div className="flex space-x-2">
+          <div>{format(currentlyViewedDate, 'MMMM')}</div>
+          <div>{currentlyViewedDate.getFullYear()}</div>
+        </div>
       </div>
       <div
         className="h-screen grid grid-cols-7
@@ -63,6 +82,7 @@ const AttendancesPage: React.FC<IAttendancesPageProps> = ({}) => {
         {currentMonthDisplayedDates.map((date, i) => (
           <div key={i} className="bg-white">
             <MonthlyBlock
+              showDay={i < 7} // we show day only for 1st row
               date={date}
               attendanceDetails={
                 attendancesDetailsGroupedByDate[
@@ -77,26 +97,3 @@ const AttendancesPage: React.FC<IAttendancesPageProps> = ({}) => {
   );
 };
 export default AttendancesPage;
-
-const totalStudents = studentsApi.getTotalNumberOfStudents();
-
-interface IMonthlyBlockProps {
-  attendanceDetails: { present: number; absent: number };
-  date: Date;
-}
-const MonthlyBlock: React.FC<IMonthlyBlockProps> = ({
-  attendanceDetails,
-  date,
-}) => {
-  return (
-    <div>
-      <p>{date.toDateString()}</p>
-      <p>Present: {attendanceDetails.present}</p>
-      <p>Absent: {attendanceDetails.absent}</p>
-      <p>
-        Unmarked:{' '}
-        {totalStudents - (attendanceDetails.present + attendanceDetails.absent)}
-      </p>
-    </div>
-  );
-};
