@@ -1,11 +1,14 @@
 import { useRouter } from 'next/router';
 
 import StudentAttendancePage from 'components/StudentsPage/Pages/StudentAttendancePage';
+import { NextPage } from 'next';
+import AuthGuard from 'components/Global/AuthGuard';
 
-interface IStudentAttendanceRouteProps {}
-const StudentAttendanceRoute: React.FC<IStudentAttendanceRouteProps> = ({}) => {
+const NextStudentAttendancePage: NextPage = ({}) => {
   const router = useRouter();
   const { id } = router.query;
-  return id ? <StudentAttendancePage id={+id} /> : null;
+  return (
+    <AuthGuard>{id ? <StudentAttendancePage id={+id} /> : null}</AuthGuard>
+  );
 };
-export default StudentAttendanceRoute;
+export default NextStudentAttendancePage;

@@ -24,19 +24,15 @@ const MonthlyBlock: React.FC<IMonthlyBlockProps> = ({
       <div className="mt-6">
         <p>
           Present:{' '}
-          <span className="text-green-600 font-bold">
-            {attendanceDetails.present}
-          </span>
+          <span className="text-green-600">{attendanceDetails.present}</span>
         </p>
         <p>
           Absent:{' '}
-          <span className="text-red-600 font-bold">
-            {attendanceDetails.absent}
-          </span>
+          <span className="text-red-600">{attendanceDetails.absent}</span>
         </p>
         <p>
           Unmarked:{' '}
-          <span className="text-yellow-600 font-bold">
+          <span className="text-yellow-600">
             {totalStudents -
               (attendanceDetails.present + attendanceDetails.absent)}
           </span>

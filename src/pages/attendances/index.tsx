@@ -1,3 +1,5 @@
+import AuthGuard from 'components/Global/AuthGuard';
+import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 
 // data getting populated by localStorage was
@@ -9,8 +11,11 @@ const AttendancesPage = dynamic(
     ssr: false,
   }
 );
-interface IAttendancesRouteProps {}
-const AttendancesRoute: React.FC<IAttendancesRouteProps> = ({}) => {
-  return <AttendancesPage />;
+const NextAttendancesPage: NextPage = ({}) => {
+  return (
+    <AuthGuard>
+      <AttendancesPage />
+    </AuthGuard>
+  );
 };
-export default AttendancesRoute;
+export default NextAttendancesPage;

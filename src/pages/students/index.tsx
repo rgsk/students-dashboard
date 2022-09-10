@@ -1,7 +1,12 @@
+import AuthGuard from 'components/Global/AuthGuard';
 import StudentsPage from 'components/StudentsPage/StudentsPage';
+import { NextPage } from 'next';
 
-interface IStudentsRouteProps {}
-const StudentsRoute: React.FC<IStudentsRouteProps> = ({}) => {
-  return <StudentsPage />;
+const NextStudentsPage: NextPage = ({}) => {
+  return (
+    <AuthGuard>
+      <StudentsPage />
+    </AuthGuard>
+  );
 };
-export default StudentsRoute;
+export default NextStudentsPage;

@@ -1,14 +1,35 @@
+import authApi from 'api/authApi';
 import FilledButton from 'components/Shared/Button';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { FormEvent, useCallback, useState } from 'react';
 
 interface ILoginPageProps {}
 const LoginPage: React.FC<ILoginPageProps> = ({}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const router = useRouter();
   const inputClassName = 'my-input w-[300px]';
+
+  const handleSubmit = useCallback(
+    (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const response = authApi.login({
+        email,
+        password,
+      });
+      if (response.error) {
+        setError(response.message);
+      } else {
+        router.push('/');
+      }
+    },
+    [email, password, router]
+  );
   return (
     <div className="h-screen flex justify-center">
-      <div className="mt-[30vh]">
+      <form className="mt-[30vh]" onSubmit={handleSubmit}>
+        <h3 className="text-xl mb-5">Please login to continue</h3>
         <div className="space-y-3">
           <FieldContainer>
             <label className="my-label" htmlFor="email">
@@ -34,11 +55,12 @@ const LoginPage: React.FC<ILoginPageProps> = ({}) => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </FieldContainer>
+          {error && <div className="text-red-500 text-sm">{error}</div>}
         </div>
         <div className="mt-5 flex-center">
-          <FilledButton>Login</FilledButton>
+          <FilledButton type="submit">Login</FilledButton>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

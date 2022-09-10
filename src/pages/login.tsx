@@ -1,7 +1,7 @@
 import LoginPage from 'components/LoginPage/LoginPage';
+import { NextPage } from 'next';
 
-interface ILoginRouteProps {}
-const LoginRoute: React.FC<ILoginRouteProps> = ({}) => {
+const NextLoginPage: NextPage = ({}) => {
   return <LoginPage />;
 };
-export default LoginRoute;
+export default NextLoginPage;

@@ -1,13 +1,12 @@
-import type { NextPage } from 'next';
+import AuthGuard from 'components/Global/AuthGuard';
+import HomePage from 'components/HomePage/HomePage';
+import { NextPage } from 'next';
 
-const Home: NextPage = () => {
+const NextHomePage: NextPage = ({}) => {
   return (
-    <div>
-      <main></main>
-
-      <footer></footer>
-    </div>
+    <AuthGuard>
+      <HomePage />
+    </AuthGuard>
   );
 };
-
-export default Home;
+export default NextHomePage;
