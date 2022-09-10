@@ -24,7 +24,7 @@ const StudentAttendancePage: React.FC<IStudentAttendancePageProps> = ({
   }, [attendanceDate, getAttendance, student.id]);
 
   return (
-    <div className="px-10 pt-4">
+    <div>
       <div>
         <h3 className="text-lg">Student Details</h3>
         <div className="mt-2">

@@ -29,7 +29,10 @@ const LoginPage: React.FC<ILoginPageProps> = ({}) => {
   return (
     <div className="h-screen flex justify-center">
       <form className="mt-[15vh]" onSubmit={handleSubmit}>
-        <h3 className="text-xl mb-5">Please login to continue</h3>
+        <div className="mb-8">
+          <h3 className="text-2xl text-center">Login</h3>
+          <p className="text-lg text-center">to continue to dashboard</p>
+        </div>
         <div className="space-y-3">
           <FieldContainer>
             <label className="my-label" htmlFor="email">

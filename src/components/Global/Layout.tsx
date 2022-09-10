@@ -32,7 +32,7 @@ const Layout: React.FC<ILayoutProps> = ({ children }) => {
           )}
         </div>
       </header>
-      <main>{children}</main>
+      <main className="px-5">{children}</main>
     </div>
   );
 };

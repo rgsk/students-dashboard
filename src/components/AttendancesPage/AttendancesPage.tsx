@@ -52,7 +52,7 @@ const AttendancesPage: React.FC<IAttendancesPageProps> = ({}) => {
   }, [attendances]);
 
   return (
-    <div className="px-5 pt-5">
+    <div>
       <div className="flex space-x-4 items-center mb-5">
         <IconButton
           onClick={() => {

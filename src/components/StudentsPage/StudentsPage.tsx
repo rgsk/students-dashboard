@@ -23,7 +23,7 @@ const StudentsPage: React.FC<IStudentsPageProps> = ({}) => {
   }, [page, perPage]);
 
   return (
-    <div className="px-5 pt-5">
+    <div>
       <StudentsTable data={students} />
       <div className="mt-5">
         <PageNavigation
