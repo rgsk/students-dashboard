@@ -4,7 +4,9 @@ import RadioInput from './Children/RadioInput';
 import { TAttendanceStatus } from 'types/generalTypes';
 import useAttendancesTable from 'hooks/useAttendancesTable';
 import generalUtils from 'utils/generalUtils';
-import studentsApi from 'api/studentsApi';
+
+import students from 'mockData/students.json';
+
 interface IStudentAttendancePageProps {
   id: number;
 }
@@ -12,7 +14,7 @@ const StudentAttendancePage: React.FC<IStudentAttendancePageProps> = ({
   id,
 }) => {
   const student = useMemo(() => {
-    return studentsApi.getStudentById(id);
+    return students.find((s) => s.id === id);
   }, [id]);
   const [attendanceDate, setAttendanceDate] = useState(() => {
     return generalUtils.getAttendanceDateString(new Date());
@@ -20,8 +22,15 @@ const StudentAttendancePage: React.FC<IStudentAttendancePageProps> = ({
   const { markAttendance, getAttendance } = useAttendancesTable();
 
   const attendanceStatus = useMemo(() => {
+    if (!student) {
+      return undefined;
+    }
     return getAttendance({ studentId: student.id, date: attendanceDate });
-  }, [attendanceDate, getAttendance, student.id]);
+  }, [attendanceDate, getAttendance, student]);
+
+  if (!student) {
+    return <p>No student with id: {id} </p>;
+  }
 
   return (
     <div>
