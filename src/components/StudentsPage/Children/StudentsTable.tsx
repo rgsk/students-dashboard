@@ -248,7 +248,7 @@ const StudentsTable: React.FC<IStudentsTableProps> = ({}) => {
           </strong>
         </span>
         <span>
-          Go to page:
+          Go to page:&nbsp;
           <input
             type="number"
             defaultValue={pageIndex + 1}
