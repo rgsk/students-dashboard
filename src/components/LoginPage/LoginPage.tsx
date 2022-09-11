@@ -65,8 +65,17 @@ const LoginPage: React.FC<ILoginPageProps> = ({}) => {
           </FieldContainer>
           {error && <div className="text-red-500 text-sm">{error}</div>}
         </div>
-        <div className="mt-5 flex-center">
+        <div className="mt-5 flex-center space-x-3">
           <FilledButton type="submit">Login</FilledButton>
+          <FilledButton
+            type="button"
+            onClick={() => {
+              setEmail(credentials.email);
+              setPassword(credentials.password);
+            }}
+          >
+            Auto Fill Credentials (For Testing)
+          </FilledButton>
         </div>
       </form>
     </div>
