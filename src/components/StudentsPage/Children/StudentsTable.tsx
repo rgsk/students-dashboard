@@ -6,13 +6,16 @@ import {
   useTable,
   useSortBy,
   usePagination,
-  HeaderGroup,
   UseSortByColumnProps,
   TableInstance,
   UsePaginationState,
   UsePaginationInstanceProps,
+  UseFiltersColumnOptions,
+  UseFiltersColumnProps,
+  useFilters,
+  ColumnInstance,
 } from 'react-table';
-import { TStudent } from 'types/generalTypes';
+import { EGender, TStudent } from 'types/generalTypes';
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -22,47 +25,91 @@ import {
 
 import IconButton from '../../Shared/IconButton';
 import studentsApi from 'api/studentsApi';
+import TextFilter from './Filters/TextFilter';
+import BetweenFilter from './Filters/BetweenFilter';
+import EnumFilter from './Filters/EnumFilter';
+import NumberFilter from './Filters/NumberFilter';
 
 const students = studentsApi.getStudents();
 
-export type TableInstanceWithHooks<T extends object> = TableInstance<T> &
+type TableInstanceWithHooks<T extends object> = TableInstance<T> &
   UsePaginationInstanceProps<T> & { state: UsePaginationState<T> };
+
+type ExtraColumnProps = {
+  options?: string[];
+  range?: { min: number; max: number };
+};
+
+export type ExtendedColumnInstance<T extends object> = ColumnInstance<T> &
+  UseSortByColumnProps<T> &
+  UseFiltersColumnProps<T> &
+  ExtraColumnProps;
 
 interface IStudentsTableProps {}
 const StudentsTable: React.FC<IStudentsTableProps> = ({}) => {
-  const columns = useMemo<Column<TStudent>[]>(() => {
+  const columns = useMemo<
+    Column<TStudent>[] &
+      UseFiltersColumnOptions<TStudent>[] &
+      ExtraColumnProps[]
+  >(() => {
     return [
       {
         Header: 'Id',
         accessor: 'id',
+        Filter: NumberFilter,
+        filter: 'exact',
       },
       {
         Header: 'First Name',
         accessor: 'firstName',
+        Filter: TextFilter,
+        filter: 'text',
       },
       {
         Header: 'Last Name',
         accessor: 'lastName',
+        Filter: TextFilter,
+        filter: 'text',
       },
       {
         Header: 'Phone',
         accessor: 'phone',
+        Filter: TextFilter,
+        filter: (rows, columnIds, filterValue) => {
+          // phone prefix should match
+          return rows.filter((row) =>
+            row.original.phone.startsWith(filterValue)
+          );
+        },
       },
       {
         Header: 'Email',
         accessor: 'email',
+        Filter: TextFilter,
+        filter: 'text',
       },
       {
         Header: 'Roll Number',
         accessor: 'rollNumber',
+        Filter: NumberFilter,
+        filter: 'exact',
       },
       {
         Header: 'Age',
         accessor: 'age',
+        Filter: BetweenFilter,
+        filter: 'between',
+        range: {
+          min: 16,
+          max: 20,
+        },
       },
       {
         Header: 'Gender',
         accessor: 'gender',
+        Filter: EnumFilter,
+        filter: 'exact',
+        options: Object.keys(EGender),
       },
     ];
   }, []);
@@ -72,6 +119,7 @@ const StudentsTable: React.FC<IStudentsTableProps> = ({}) => {
     headerGroups,
     prepareRow,
     page,
+    allColumns,
     gotoPage,
     pageCount,
     nextPage,
@@ -82,6 +130,7 @@ const StudentsTable: React.FC<IStudentsTableProps> = ({}) => {
     state: { pageIndex, pageSize },
   } = useTable(
     { columns, data: students },
+    useFilters,
     useSortBy,
     usePagination
   ) as TableInstanceWithHooks<TStudent>;
@@ -89,15 +138,29 @@ const StudentsTable: React.FC<IStudentsTableProps> = ({}) => {
 
   return (
     <div className="pb-5">
-      <div>
-        <Table />
-      </div>
-      <div className="mt-7">
-        <Pagination />
-      </div>
+      <div>{renderFilterInputs()}</div>
+      <div className="mt-7">{renderTable()}</div>
+      <div className="mt-7">{renderPagination()}</div>
     </div>
   );
-  function Table() {
+
+  function renderFilterInputs() {
+    return (
+      <div className="flex space-x-4">
+        {allColumns.map((_column, i) => {
+          const column = _column as ExtendedColumnInstance<TStudent>;
+          return column.canFilter ? (
+            <div key={i} className="flex-center space-x-2">
+              <span>{column.render('Header')}: </span>
+              <span>{column.render('Filter')}</span>
+            </div>
+          ) : null;
+        })}
+      </div>
+    );
+  }
+
+  function renderTable() {
     return (
       <table
         {...getTableProps()}
@@ -106,9 +169,8 @@ const StudentsTable: React.FC<IStudentsTableProps> = ({}) => {
         <thead className="bg-gray-100">
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((_column) => {
-                const column = _column as HeaderGroup<TStudent> &
-                  UseSortByColumnProps<TStudent>;
+              {headerGroup.headers.map((_column: any) => {
+                const column = _column as ExtendedColumnInstance<TStudent>;
                 return (
                   <th
                     {...column.getHeaderProps(column.getSortByToggleProps())}
@@ -159,7 +221,7 @@ const StudentsTable: React.FC<IStudentsTableProps> = ({}) => {
       </table>
     );
   }
-  function Pagination() {
+  function renderPagination() {
     return (
       <div className="flex items-center justify-end gap-4">
         <div className="flex gap-1">
