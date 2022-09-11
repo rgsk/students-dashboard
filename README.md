@@ -14,7 +14,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to see the r
 
 ## Access deployed website
 
-[https://students-dashboard-three.vercel.app](https://students-dashboard-three.vercel.app)
+[https://students-dashboard-three.vercel.app/students](https://students-dashboard-three.vercel.app/students)
 
 ## Login Credentials
 
