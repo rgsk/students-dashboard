@@ -258,7 +258,7 @@ const StudentsTable: React.FC<IStudentsTableProps> = ({}) => {
                 : 0;
               gotoPage(newPageIndex);
             }}
-            className="w-12 rounded border border-gray-200 p-1 text-gray-700"
+            className="w-[70px] rounded border border-gray-200 p-1 text-gray-700"
           />
         </span>
         <select
