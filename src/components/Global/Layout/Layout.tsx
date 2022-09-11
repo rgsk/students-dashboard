@@ -1,7 +1,8 @@
 import authApi from 'api/authApi';
-import FilledButton from 'components/Shared/Button';
-import Image from 'next/image';
+import FilledButton from 'components/Shared/FilledButton';
 import { useRouter } from 'next/router';
+import NavLink from './Children/NavLink';
+import PWLogo from './Children/PWLogo';
 interface ILayoutProps {
   children: React.ReactNode;
 }
@@ -11,14 +12,11 @@ const Layout: React.FC<ILayoutProps> = ({ children }) => {
   return (
     <div>
       <header className="flex justify-between items-center py-5 px-5">
-        <div
-          className="bg-white cursor-pointer"
-          onClick={() => {
-            router.push('/');
-          }}
-        >
-          <Image src="/pw-logo.png" alt="pw-logo" width={50} height={50} />
-        </div>
+        <nav className="flex items-center space-x-10">
+          <PWLogo />
+          <NavLink href="/students">Students</NavLink>
+          <NavLink href="/attendances">Attendances</NavLink>
+        </nav>
         <div>
           {router.asPath !== '/login' && (
             <FilledButton

@@ -1,4 +1,4 @@
-import Layout from 'components/Global/Layout';
+import Layout from 'components/Global/Layout/Layout';
 import LoginPage from 'components/LoginPage/LoginPage';
 import { NextPage } from 'next';
 

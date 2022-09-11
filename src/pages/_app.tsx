@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }: ComponentWithPageLayout) {
       <Head>
         <title>Students Dashboard</title>
         <meta name="description" content="Welcome to Students Dashboard" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/pw-logo.png" />
       </Head>
       {Component.PageLayout ? (
         <Component.PageLayout>

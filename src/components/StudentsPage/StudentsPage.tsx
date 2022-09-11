@@ -6,7 +6,9 @@ const StudentsPage: React.FC<IStudentsPageProps> = ({}) => {
     <div>
       <StudentsTable />
       <div>
-        <p>Note: Click on the row to mark attendance for particular student</p>
+        <p className="text-lg">
+          Note: Click on the row to mark attendance for particular student
+        </p>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import AuthGuard from 'components/Global/AuthGuard';
-import Layout from 'components/Global/Layout';
+import Layout from 'components/Global/Layout/Layout';
 import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 

@@ -1,5 +1,5 @@
 import authApi, { credentials } from 'api/authApi';
-import FilledButton from 'components/Shared/Button';
+import FilledButton from 'components/Shared/FilledButton';
 import { useRouter } from 'next/router';
 import { FormEvent, useCallback, useState } from 'react';
 
@@ -26,7 +26,7 @@ const LoginPage: React.FC<ILoginPageProps> = ({}) => {
           Password: ${credentials.password}
         `);
       } else {
-        router.push('/');
+        router.push('/students');
       }
     },
     [email, password, router]

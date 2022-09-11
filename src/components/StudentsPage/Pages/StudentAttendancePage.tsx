@@ -38,7 +38,7 @@ const StudentAttendancePage: React.FC<IStudentAttendancePageProps> = ({
   }
 
   return (
-    <div>
+    <div className="pl-[90px]">
       <div>
         <h3 className="text-lg">Student Details</h3>
         <div className="mt-2">
