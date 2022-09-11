@@ -20,9 +20,10 @@ import {
   ChevronsRightIcon,
 } from 'components/Shared/Icons';
 
-import students from 'mockData/students.json';
-
 import IconButton from '../../Shared/IconButton';
+import studentsApi from 'api/studentsApi';
+
+const students = studentsApi.getStudents();
 
 export type TableInstanceWithHooks<T extends object> = TableInstance<T> &
   UsePaginationInstanceProps<T> & { state: UsePaginationState<T> };

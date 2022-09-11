@@ -1,16 +1,15 @@
 import { ChevronLeftIcon, ChevronRightIcon } from 'components/Shared/Icons';
 import IconButton from 'components/Shared/IconButton';
 import { addMonths, format } from 'date-fns';
-import useAttendancesTable from 'hooks/useAttendancesTable';
 import { useCallback, useMemo, useState } from 'react';
 import generalUtils from 'utils/generalUtils';
 import MonthlyBlock from './Children/MonthlyBlock';
 import getDatesForMonthView from './localUtils/getDatesForMonthView';
+import attendancesApi from 'api/attendancesApi';
 
 interface IAttendancesPageProps {}
 const AttendancesPage: React.FC<IAttendancesPageProps> = ({}) => {
   const [currentlyViewedDate, setCurrentlyViewedDate] = useState(new Date());
-  const { attendances } = useAttendancesTable();
 
   const currentMonthDisplayedDates = useMemo(() => {
     return getDatesForMonthView({
@@ -29,6 +28,7 @@ const AttendancesPage: React.FC<IAttendancesPageProps> = ({}) => {
 
   const attendancesDetailsGroupedByDate = useMemo(() => {
     const grouped: Record<string, { present: number; absent: number }> = {};
+    const attendances = attendancesApi.getAttendances();
     for (const { date, status } of attendances) {
       if (grouped[date] === undefined) {
         grouped[date] = {
@@ -49,7 +49,7 @@ const AttendancesPage: React.FC<IAttendancesPageProps> = ({}) => {
     }
 
     return grouped;
-  }, [attendances]);
+  }, []);
 
   return (
     <div>

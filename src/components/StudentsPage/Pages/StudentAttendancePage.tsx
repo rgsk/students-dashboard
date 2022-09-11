@@ -1,11 +1,11 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import RadioInput from './Children/RadioInput';
 import { TAttendanceStatus } from 'types/generalTypes';
-import useAttendancesTable from 'hooks/useAttendancesTable';
 import generalUtils from 'utils/generalUtils';
 
-import students from 'mockData/students.json';
+import attendancesApi from 'api/attendancesApi';
+import studentsApi from 'api/studentsApi';
 
 interface IStudentAttendancePageProps {
   id: number;
@@ -14,19 +14,24 @@ const StudentAttendancePage: React.FC<IStudentAttendancePageProps> = ({
   id,
 }) => {
   const student = useMemo(() => {
-    return students.find((s) => s.id === id);
+    return studentsApi.getStudentById(id);
   }, [id]);
   const [attendanceDate, setAttendanceDate] = useState(() => {
     return generalUtils.getAttendanceDateString(new Date());
   });
-  const { markAttendance, getAttendance } = useAttendancesTable();
+  const [attendanceStatus, setAttendanceStatus] = useState<TAttendanceStatus>();
+  const fetchAndSetAttendanceStatus = useCallback(() => {
+    if (!student) return;
+    const status = attendancesApi.getAttendance({
+      studentId: student.id,
+      date: attendanceDate,
+    });
+    setAttendanceStatus(status);
+  }, [attendanceDate, student]);
 
-  const attendanceStatus = useMemo(() => {
-    if (!student) {
-      return undefined;
-    }
-    return getAttendance({ studentId: student.id, date: attendanceDate });
-  }, [attendanceDate, getAttendance, student]);
+  useEffect(() => {
+    fetchAndSetAttendanceStatus();
+  }, [fetchAndSetAttendanceStatus]);
 
   if (!student) {
     return <p>No student with id: {id} </p>;
@@ -76,11 +81,12 @@ const StudentAttendancePage: React.FC<IStudentAttendancePageProps> = ({
               name="attendance"
               setValue={(v) => {
                 const status = v as TAttendanceStatus;
-                markAttendance({
+                attendancesApi.markAttendance({
                   studentId: student.id,
                   date: attendanceDate,
                   status: status,
                 });
+                fetchAndSetAttendanceStatus();
               }}
               value={attendanceStatus}
             />
