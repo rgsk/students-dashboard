@@ -1,4 +1,4 @@
-import authApi from 'api/authApi';
+import authApi, { credentials } from 'api/authApi';
 import FilledButton from 'components/Shared/Button';
 import { useRouter } from 'next/router';
 import { FormEvent, useCallback, useState } from 'react';
@@ -22,8 +22,8 @@ const LoginPage: React.FC<ILoginPageProps> = ({}) => {
         setError(response.message);
         alert(`
           Please use following credentials - 
-          Email: pw@gmail.com
-          Password: 123
+          Email: ${credentials.email}
+          Password: ${credentials.password}
         `);
       } else {
         router.push('/');

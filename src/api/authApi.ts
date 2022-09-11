@@ -1,4 +1,4 @@
-const credentials = {
+export const credentials = {
   email: 'pw@gmail.com',
   password: '123',
 };
