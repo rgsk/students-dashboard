@@ -52,7 +52,7 @@ const AttendancesPage: React.FC<IAttendancesPageProps> = ({}) => {
   }, []);
 
   return (
-    <div>
+    <div className="pb-5">
       <div className="flex space-x-4 items-center mb-5">
         <IconButton
           onClick={() => {
@@ -75,7 +75,7 @@ const AttendancesPage: React.FC<IAttendancesPageProps> = ({}) => {
         </div>
       </div>
       <div
-        className="h-screen grid grid-cols-7
+        className="grid grid-cols-7
                    bg-gray-200 gap-[1px] border-gray-200 border
                    "
       >

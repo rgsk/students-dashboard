@@ -14,14 +14,14 @@ const MonthlyBlock: React.FC<IMonthlyBlockProps> = ({
   date,
 }) => {
   return (
-    <div className="px-4 py-2">
+    <div className="px-4 pt-2 pb-4">
       {showDay && (
         <p className="text-center uppercase">{format(date, 'iii')}</p>
       )}
       <p className="text-center">
         {format(date, 'd')} {date.getDate() === 1 ? format(date, 'MMM') : ''}
       </p>
-      <div className="mt-6">
+      <div className="mt-3">
         <p>
           Present:{' '}
           <span className="text-green-600">{attendanceDetails.present}</span>
