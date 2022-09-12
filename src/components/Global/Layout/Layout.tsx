@@ -16,6 +16,7 @@ const Layout: React.FC<ILayoutProps> = ({ children }) => {
           <PWLogo />
           <NavLink href="/students">Students</NavLink>
           <NavLink href="/attendances">Attendances</NavLink>
+          <NavLink href="/mark-attendance">Mark Attendace</NavLink>
         </nav>
         <div>
           {router.asPath !== '/login' && (
