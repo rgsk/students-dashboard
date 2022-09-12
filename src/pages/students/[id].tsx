@@ -11,7 +11,9 @@ const NextStudentAttendancePage: NextPage & {
   const router = useRouter();
   const { id } = router.query;
   return (
-    <AuthGuard>{id ? <StudentAttendancePage id={+id} /> : null}</AuthGuard>
+    <AuthGuard>
+      <StudentAttendancePage id={id as string | undefined} />
+    </AuthGuard>
   );
 };
 NextStudentAttendancePage.PageLayout = Layout;

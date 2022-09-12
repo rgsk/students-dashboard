@@ -8,16 +8,21 @@ import attendancesApi from 'api/attendancesApi';
 import studentsApi from 'api/studentsApi';
 
 interface IStudentAttendancePageProps {
-  id?: number;
+  id?: string;
 }
 const StudentAttendancePage: React.FC<IStudentAttendancePageProps> = ({
   id,
 }) => {
-  const [studentId, setStudentId] = useState(id);
+  const [studentId, setStudentId] = useState<string>();
+  useEffect(() => {
+    // id is initially undefined (router.query populates id value late)
+    // thats why setting in useEffect
+    setStudentId(id);
+  }, [id]);
   const student = useMemo(() => {
-    if (studentId === undefined) return null;
-    return studentsApi.getStudentById(studentId);
+    return studentsApi.getStudentById(Number(studentId));
   }, [studentId]);
+
   const [attendanceDate, setAttendanceDate] = useState(() => {
     return generalUtils.getAttendanceDateString(new Date());
   });
@@ -42,9 +47,9 @@ const StudentAttendancePage: React.FC<IStudentAttendancePageProps> = ({
         <input
           type="number"
           className="my-input w-[150px]"
-          value={studentId}
+          value={studentId ?? ''}
           onChange={(e) => {
-            setStudentId(e.target.value ? Number(e.target.value) : undefined);
+            setStudentId(e.target.value);
           }}
         />
       </div>
@@ -105,7 +110,9 @@ const StudentAttendancePage: React.FC<IStudentAttendancePageProps> = ({
             </div>
           </div>
         </>
-      ) : null}
+      ) : (
+        <>{studentId && <div>No Student with id: {studentId}</div>}</>
+      )}
     </div>
   );
 };
